@@ -3,3 +3,5 @@ const router = express.Router();
 const persionalInfoController = require('../controller/persionalInfoController');
 
 router.post('/createuser', persionalInfoController.createPersionalInfo);
+
+module.exports = router;

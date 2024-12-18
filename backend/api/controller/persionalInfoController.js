@@ -1,4 +1,4 @@
-const persionalInfoSchema = require("../models/persionalInfoSchema");
+// const persionalInfoSchema = require("../models/persionalInfoSchema");
 
 //create persional info
 exports.createPersionalInfo = async (req, res) => {

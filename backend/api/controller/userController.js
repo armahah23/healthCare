@@ -1,12 +1,12 @@
-const express = require("express");
 const bcrypt = require("bcrypt");
+const User = require("../schemas/userSchema");
 
-//create new user
-exports.createUser(async (req, res) => {
+// Create new user
+exports.createUser = async (req, res) => {
   try {
-    const { userroll, fullname, email, password, confirmPassword } = req.body;
+    const { fullname, email, password, confirmPassword } = req.body;
 
-    if (!fullname || !email || !password || confirmPassword) {
+    if (!fullname || !email || !password || !confirmPassword) {
       return res.status(400).json({ message: "Please fill in all fields" });
     }
 
@@ -16,10 +16,11 @@ exports.createUser(async (req, res) => {
 
     const hashedpassword = bcrypt.hashSync(password, 10);
     const user = await User.create({
-      userroll,
+      userrole: "user",
       fullname,
       email,
       password: hashedpassword,
+      date: new Date(),
     });
     await new User(user).save();
     res.status(201).json({ message: "User created successfully" });
@@ -27,10 +28,10 @@ exports.createUser(async (req, res) => {
     console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }
-});
+};
 
-//login user
-exports.login(async (req, res) => {
+// Login user
+exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -55,4 +56,15 @@ exports.login(async (req, res) => {
     console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }
-});
+};
+
+//get all the users
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
