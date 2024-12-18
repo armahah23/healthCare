@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const loginRoutes = require("./api/routes/loginRoutes");
+const userRoutes = require("./api/routes/userRoutes");
 const persionalInfoRoutes = require("./api/routes/persionalInfoRoutes");
 
 const app = express();
@@ -20,7 +20,7 @@ mongoose
   });
 
 // Register routes
-app.use("/api", loginRoutes);
+app.use("/api", userRoutes);
 app.use("/api", persionalInfoRoutes);
 
 //port

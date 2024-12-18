@@ -1,33 +1,26 @@
-// const persionalInfoSchema = require("../models/persionalInfoSchema");
+const PersionalInfo = require("../schemas/persionalInfoSchema");
 
-//create persional info
 exports.createPersionalInfo = async (req, res) => {
   try {
-    const { dietType, gender, age, height, weight, activityLevel, goal } =
-      req.body;
+    const { userId, dietType, gender, age, height, weight, goal } = req.body;
 
-    if (
-      !dietType ||
-      !gender ||
-      !age ||
-      !height ||
-      !weight ||
-      !activityLevel ||
-      !goal
-    ) {
+    if (!userId || !dietType || !gender || !age || !height || !weight || !goal) {
       return res.status(400).json({ message: "Please fill in all fields" });
     }
-    const persionalInfo = await PersonalInfo.create({
+
+    const persionalInfo = await PersionalInfo.create({
+      userId,
       dietType,
       gender,
       age,
       height,
       weight,
-      activityLevel,
       goal,
     });
-    await new PersonalInfo(persionalInfo).save();
-    res.status(201).json({ message: "Persional Info created successfully" });
+
+    await new PersionalInfo(persionalInfo).save();
+
+    res.status(201).json({ message: "Personal Info created successfully", });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal server error" });

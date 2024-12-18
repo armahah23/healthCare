@@ -1,5 +1,8 @@
 const bcrypt = require("bcrypt");
 const User = require("../schemas/userSchema");
+const jwt = require("jsonwebtoken");
+
+const JWT_SECRET = "your_jwt_secret";
 
 // Create new user
 exports.createUser = async (req, res) => {
@@ -22,8 +25,11 @@ exports.createUser = async (req, res) => {
       password: hashedpassword,
       date: new Date(),
     });
+    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, {
+      expiresIn: "1h",
+    });
     await new User(user).save();
-    res.status(201).json({ message: "User created successfully" });
+    res.status(201).json({ message: "User created successfully", token });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal server error" });
@@ -51,7 +57,11 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    res.status(200).json({ message: "Login successful" });
+    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.status(200).json({ message: "Login successful", token });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal server error" });
@@ -63,6 +73,22 @@ exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+//get user by id
+exports.getUserById = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal server error" });
