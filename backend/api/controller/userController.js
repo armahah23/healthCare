@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt");
 const User = require("../schemas/userSchema");
 const jwt = require("jsonwebtoken");
 
-const JWT_SECRET = "your_jwt_secret";
 
 // Create new user
 exports.createUser = async (req, res) => {
@@ -57,14 +56,15 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, {
+    // Assuming you have a function to generate a token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ message: "Login successful", token });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(200).json({  message:"login successfully", token });
+  } catch (error) {
+    console.error("Error during login:", error); // Log the error details
+    res.status(500).json({ message: "Server error" });
   }
 };
 
