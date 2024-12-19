@@ -12,8 +12,7 @@ app.use(express.json());
 
 // connect mongodb atlas
 mongoose
-  .connect(
-    "mongodb+srv://armaempoff:TChf1akA6Vjq5npt@cluster1.n3l2d.mongodb.net/healthapp")
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("Connected to MongoDB");
   })

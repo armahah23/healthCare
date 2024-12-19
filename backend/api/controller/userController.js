@@ -8,6 +8,7 @@ exports.createUser = async (req, res) => {
   try {
     const { fullname, email, password, confirmPassword } = req.body;
 
+    // Validation checks
     if (!fullname || !email || !password || !confirmPassword) {
       return res.status(400).json({ message: "Please fill in all fields" });
     }
@@ -16,6 +17,13 @@ exports.createUser = async (req, res) => {
       return res.status(400).json({ message: "Passwords do not match" });
     }
 
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
+
+    // Create user
     const hashedpassword = bcrypt.hashSync(password, 10);
     const user = await User.create({
       userrole: "user",
@@ -24,12 +32,18 @@ exports.createUser = async (req, res) => {
       password: hashedpassword,
       date: new Date(),
     });
-    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, {
-      expiresIn: "1h",
-    });
-    await new User(user).save();
+
+    const token = jwt.sign(
+      { id: user._id, email: user.email }, 
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
     res.status(201).json({ message: "User created successfully", token });
   } catch (err) {
+    if (err.code === 11000) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
     console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }

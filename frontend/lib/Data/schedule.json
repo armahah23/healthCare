@@ -1,0 +1,115 @@
+{
+    "fitnessApp": {
+      "exercises": {
+        "weightLoss": {
+          "schedule": [
+            {
+              "day": "Day 1",
+              "exercises": [
+                { "name": "Jumping Jacks", "reps": 20, "duration": "2 mins" },
+                { "name": "Burpees", "reps": 15, "duration": "3 mins" },
+                { "name": "High Knees", "reps": 30, "duration": "2 mins" },
+                { "name": "Mountain Climbers", "reps": 20, "duration": "2 mins" },
+                { "name": "Plank", "reps": 0, "duration": "1 min" }
+              ]
+            },
+            {
+              "day": "Day 2",
+              "exercises": [
+                { "name": "Squat Jumps", "reps": 20, "duration": "3 mins" },
+                { "name": "Push-Ups", "reps": 15, "duration": "2 mins" },
+                { "name": "Bicycle Crunches", "reps": 25, "duration": "2 mins" },
+                { "name": "Lunges", "reps": 20, "duration": "2 mins" },
+                { "name": "Plank with Shoulder Taps", "reps": 0, "duration": "1.5 mins" }
+              ]
+            },
+            {
+              "day": "Day 3",
+              "exercises": [
+                { "name": "Box Jumps", "reps": 20, "duration": "3 mins" },
+                { "name": "Side Plank", "reps": 0, "duration": "1 min each side" },
+                { "name": "Skipping", "reps": 100, "duration": "2 mins" },
+                { "name": "Jump Squats", "reps": 20, "duration": "2 mins" },
+                { "name": "Push-Up to Plank", "reps": 15, "duration": "2 mins" }
+              ]
+            },
+            {
+              "day": "Day 4",
+              "exercises": [
+                { "name": "Burpees with Push-Up", "reps": 15, "duration": "3 mins" },
+                { "name": "Side Lunges", "reps": 20, "duration": "2 mins" },
+                { "name": "Russian Twists", "reps": 30, "duration": "2 mins" },
+                { "name": "Star Jumps", "reps": 25, "duration": "2 mins" },
+                { "name": "Plank with Leg Raise", "reps": 0, "duration": "1.5 mins" }
+              ]
+            },
+            {
+              "day": "Day 5",
+              "exercises": [
+                { "name": "Sprint Intervals", "reps": 0, "duration": "3 mins" },
+                { "name": "Push-Up Jacks", "reps": 15, "duration": "2 mins" },
+                { "name": "Step-Ups", "reps": 20, "duration": "2 mins" },
+                { "name": "Squats with Dumbbells", "reps": 20, "duration": "2 mins" },
+                { "name": "Plank to Side Plank", "reps": 0, "duration": "2 mins" }
+              ]
+            }
+          ]
+        },
+        "weightGain": {
+          "schedule": [
+            {
+              "day": "Day 1",
+              "exercises": [
+                { "name": "Deadlifts", "reps": 10, "duration": "3 mins" },
+                { "name": "Bench Press", "reps": 10, "duration": "3 mins" },
+                { "name": "Pull-Ups", "reps": 8, "duration": "2 mins" },
+                { "name": "Overhead Press", "reps": 10, "duration": "3 mins" },
+                { "name": "Squats", "reps": 12, "duration": "3 mins" }
+              ]
+            },
+            {
+              "day": "Day 2",
+              "exercises": [
+                { "name": "Bent-Over Rows", "reps": 10, "duration": "3 mins" },
+                { "name": "Dumbbell Lunges", "reps": 12, "duration": "3 mins" },
+                { "name": "Incline Bench Press", "reps": 10, "duration": "3 mins" },
+                { "name": "Barbell Shrugs", "reps": 15, "duration": "2 mins" },
+                { "name": "Plank with Weighted Plate", "reps": 0, "duration": "1.5 mins" }
+              ]
+            },
+            {
+              "day": "Day 3",
+              "exercises": [
+                { "name": "Clean and Press", "reps": 10, "duration": "3 mins" },
+                { "name": "Dips", "reps": 12, "duration": "2 mins" },
+                { "name": "Barbell Curls", "reps": 12, "duration": "3 mins" },
+                { "name": "Seated Rows", "reps": 10, "duration": "3 mins" },
+                { "name": "Leg Press", "reps": 12, "duration": "3 mins" }
+              ]
+            },
+            {
+              "day": "Day 4",
+              "exercises": [
+                { "name": "Weighted Pull-Ups", "reps": 8, "duration": "2 mins" },
+                { "name": "Front Squats", "reps": 10, "duration": "3 mins" },
+                { "name": "Arnold Press", "reps": 10, "duration": "3 mins" },
+                { "name": "Romanian Deadlifts", "reps": 10, "duration": "3 mins" },
+                { "name": "Cable Crossovers", "reps": 12, "duration": "3 mins" }
+              ]
+            },
+            {
+              "day": "Day 5",
+              "exercises": [
+                { "name": "Snatch", "reps": 10, "duration": "3 mins" },
+                { "name": "Tricep Extensions", "reps": 12, "duration": "2 mins" },
+                { "name": "Chest Fly", "reps": 12, "duration": "3 mins" },
+                { "name": "Leg Curls", "reps": 12, "duration": "3 mins" },
+                { "name": "Weighted Sit-Ups", "reps": 20, "duration": "2 mins" }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+  

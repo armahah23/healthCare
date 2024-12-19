@@ -1,33 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:sornaka/home.dart';
-import 'package:sornaka/main.dart';
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: SetGoalPage(),
-  ));
+class SetGoalPage extends StatefulWidget {
+  @override
+  _SetGoalPageState createState() => _SetGoalPageState();
 }
 
-class SetGoalPage extends StatelessWidget {
+class _SetGoalPageState extends State<SetGoalPage> {
+  final _weightController = TextEditingController();
+  final _daysController = TextEditingController();
+  final _hoursController = TextEditingController();
+  final _workoutDaysController = TextEditingController();
+
+  @override
+  void dispose() {
+    _weightController.dispose();
+    _daysController.dispose();
+    _hoursController.dispose();
+    _workoutDaysController.dispose();
+    super.dispose();
+  }
+
+  Widget _buildInputField(String question, TextEditingController controller, String hint) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.grey[900],
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            question,
+            style: const TextStyle(color: Colors.white, fontSize: 16),
+          ),
+          const SizedBox(height: 10),
+          TextField(
+            controller: controller,
+            style: const TextStyle(color: Colors.white),
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              hintText: hint,
+              hintStyle: TextStyle(color: Colors.grey[600]),
+              filled: true,
+              fillColor: Colors.grey[850],
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FitnessPlanForm(),
-                ));
-          },
-        ),
-      ),
       body: Column(
         children: [
           Stack(
@@ -48,7 +81,7 @@ class SetGoalPage extends StatelessWidget {
               Center(
                 child: Column(
                   children: [
-                    const SizedBox(height: 60),
+                    const SizedBox(height: 20),
                     CircleAvatar(
                       radius: 40,
                       backgroundImage: AssetImage('assets/fitness.png'),
@@ -76,16 +109,32 @@ class SetGoalPage extends StatelessWidget {
           ),
           const SizedBox(height: 30),
           Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
+            child: ListView(
               padding: const EdgeInsets.all(20),
               children: [
-                buildGoalButton('What is your prefer weight to reduce?'),
-                buildGoalButton('How many days you plan to workout?'),
-                buildGoalButton('How much hours you can spent for a day?'),
-                buildGoalButton('How many days you plan to workout?'),
+                _buildInputField(
+                  'What is your prefer weight to reduce?',
+                  _weightController,
+                  'Enter weight in kg'
+                ),
+                const SizedBox(height: 20),
+                _buildInputField(
+                  'How many days you plan to workout?',
+                  _daysController,
+                  'Enter number of days'
+                ),
+                const SizedBox(height: 20),
+                _buildInputField(
+                  'How much hours you can spent for a day?',
+                  _hoursController,
+                  'Enter hours per day'
+                ),
+                const SizedBox(height: 20),
+                _buildInputField(
+                  'How many days you plan to workout?',
+                  _workoutDaysController,
+                  'Enter workout days'
+                ),
               ],
             ),
           ),
@@ -114,26 +163,6 @@ class SetGoalPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget buildGoalButton(String text) {
-    return ElevatedButton(
-      onPressed: () {
-        // Handle button click
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.grey[900],
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        padding: const EdgeInsets.all(20),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(color: Colors.white, fontSize: 14),
-        textAlign: TextAlign.center,
       ),
     );
   }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sornaka/Daily_plan.dart';
+// import 'package:sornaka/Daily_plan.dart';
+import 'Tell_us_about.dart';
 import 'package:sornaka/profile.dart';
 import 'package:sornaka/progress.dart';
-import 'package:sornaka/set_goal.dart';
+// import 'package:sornaka/set_goal.dart';
+import 'login_page.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -21,7 +23,7 @@ class HomePage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SetGoalPage(),
+                    builder: (context) => LoginScreen(),
                   ));
             },
             icon: Icon(Icons.arrow_back, color: Colors.white)),
@@ -40,7 +42,7 @@ class HomePage extends StatelessWidget {
           Stack(
             children: [
               Container(
-                height: 200,
+                height: 150,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -54,7 +56,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 80.0, left: 20, right: 20),
+                padding: const EdgeInsets.only(top: 40.0, left: 20, right: 20),
                 child: Row(
                   children: [
                     // Avatar
@@ -68,7 +70,7 @@ class HomePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text(
-                          'Hi! Sangavi..',
+                          'Hi!',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -99,11 +101,11 @@ class HomePage extends StatelessWidget {
                 // Daily Plan Button
                 MenuButton(
                   icon: Icons.calendar_today,
-                  text: 'Daily Plan',
+                  text: 'Personal Info',
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DailyPlanPage()),
+                      MaterialPageRoute(builder: (context) => FitnessPlanForm()),
                     );
                   },
                 ),
@@ -111,11 +113,11 @@ class HomePage extends StatelessWidget {
                 // Progress Button
                 MenuButton(
                   icon: Icons.bar_chart,
-                  text: 'Progress',
+                  text: 'Tasks',
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SuccessCriteriaPage()),
+                      MaterialPageRoute(builder: (context) => WorkoutProgressPage()),
                     );
                   },
                 ),

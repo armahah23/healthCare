@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'home.dart';
+import 'set_goal.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -40,10 +42,28 @@ class _FitnessPlanFormState extends State<FitnessPlanForm> {
                     ),
                   ),
                 ),
+                Positioned(
+                  top: 10,
+                  left: 10,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      // Navigator.pushReplacementNamed(context, '/home');
+                      // Alternative way:
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    },
+                  ),
+                ),
                 Center(
                   child: Column(
                     children: [
-                      const SizedBox(height: 60),
+                      const SizedBox(height: 30),
                       CircleAvatar(
                         radius: 40,
                         backgroundImage: AssetImage('assets/fitness.png'),
@@ -60,7 +80,7 @@ class _FitnessPlanFormState extends State<FitnessPlanForm> {
                       const Text(
                         'We will create your fitness plan',
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: Color.fromARGB(255, 255, 160, 160),
                           fontSize: 16,
                         ),
                       ),
@@ -78,24 +98,17 @@ class _FitnessPlanFormState extends State<FitnessPlanForm> {
               ],
             ),
             const SizedBox(height: 20),
-            buildLabel('Gender:'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                buildLabel('Gender:'),
                 buildRadioOption('Male', 'male'),
                 buildRadioOption('Female', 'female'),
               ],
             ),
             const SizedBox(height: 20),
             buildLabel('Age:'),
-            Column(
-              children: [
-                buildRadioOption('Under 18', 'under_18'),
-                buildRadioOption('18 - 40', '18_40'),
-                buildRadioOption('40 - 60', '40_60'),
-                buildRadioOption('Above 60', 'above_60'),
-              ],
-            ),
+            buildTextField(heightController, 'Enter your Age'),
             const SizedBox(height: 20),
             buildLabel('Height:'),
             buildTextField(heightController, 'Enter your height'),
@@ -105,14 +118,18 @@ class _FitnessPlanFormState extends State<FitnessPlanForm> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                // Handle the submission
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SetGoalPage()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orange,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
               ),
               child: const Text(
                 'Next',
@@ -150,7 +167,9 @@ class _FitnessPlanFormState extends State<FitnessPlanForm> {
       children: [
         Radio<String>(
           value: value,
-          groupValue: value.contains('male') || value.contains('female') ? gender : ageGroup,
+          groupValue: value.contains('male') || value.contains('female')
+              ? gender
+              : ageGroup,
           onChanged: (newValue) {
             setState(() {
               if (value.contains('male') || value.contains('female')) {

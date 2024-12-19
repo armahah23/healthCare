@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sornaka/set_goal.dart';
+import 'package:sornaka/welcome_screen.dart';
 //import 'signup_page.dart';
 
 // void main() {
@@ -12,7 +13,7 @@ import 'package:sornaka/set_goal.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: FitnessPlanForm(),
+    home: WelcomeScreen(),
   ));
 }
 

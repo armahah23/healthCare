@@ -1,4 +1,4 @@
-# sornaka
+# Daily Plan
 
 A new Flutter project.
 
