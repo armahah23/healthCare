@@ -12,21 +12,12 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        elevation: 0,
-        title: const Text(
-          'Profile',
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-      ),
       body: Column(
         children: [
           Stack(
             children: [
               Container(
-                height: 200,
+                height: 170,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     colors: [Colors.orange, Colors.deepOrange],
@@ -39,7 +30,15 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 120,
+                top: 10,
+                left: 5,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              Positioned(
+                top: 30,
                 left: MediaQuery.of(context).size.width / 2 - 50,
                 child: CircleAvatar(
                   radius: 50,
@@ -49,9 +48,9 @@ class ProfilePage extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 60),
+          const SizedBox(height: 10),
           const Text(
-            'Sangavi',
+            'Hi !',
             style: TextStyle(
               color: Colors.white,
               fontSize: 24,
@@ -65,7 +64,7 @@ class ProfilePage extends StatelessWidget {
               fontSize: 16,
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -74,7 +73,7 @@ class ProfilePage extends StatelessWidget {
               buildStatisticItem('Done', '2 steps', Icons.check_circle),
             ],
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 10),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
