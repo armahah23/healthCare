@@ -4,7 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const userRoutes = require("./api/routes/userRoutes");
 const persionalInfoRoutes = require("./api/routes/persionalInfoRoutes");
-const snsRoutes = require("./api/routes/snsroutes");
+// const snsRoutes = require("./api/routes/snsroutes");
 
 const app = express();
 app.use(cors());
@@ -21,7 +21,7 @@ mongoose
   });
 
 // Register routes
-app.use("/api", snsRoutes);
+// app.use("/api", snsRoutes);
 app.use("/api", userRoutes);
 app.use("/api", persionalInfoRoutes);
 

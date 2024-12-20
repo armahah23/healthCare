@@ -1,9 +1,9 @@
-const express = require('express');
-const { sendReminder } = require('../controller/snsController');
+// const express = require('express');
+// const { sendReminder } = require('../controller/snsController');
 
-const router = express.Router();
+// const router = express.Router();
 
-// Endpoint for sending reminders
-router.post('/reminder', sendReminder);
+// // Endpoint for sending reminders
+// router.post('/reminder', sendReminder);
 
-module.exports = router;
+// module.exports = router;
