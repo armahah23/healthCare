@@ -1,10 +1,29 @@
-import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'home.dart';
-import './Models/Exercise.dart';
+
+class Exercise {
+  final String name;
+  final int reps;
+  final String duration;
+
+  Exercise({required this.name, required this.reps, required this.duration});
+
+  factory Exercise.fromJson(Map<String, dynamic> json) {
+    return Exercise(
+      name: json['name'],
+      reps: json['reps'],
+      duration: json['duration'],
+    );
+  }
+}
 
 class WorkoutProgressPage extends StatefulWidget {
+  const WorkoutProgressPage({super.key});
+
   @override
   _WorkoutProgressPageState createState() => _WorkoutProgressPageState();
 }
@@ -26,23 +45,23 @@ class _WorkoutProgressPageState extends State<WorkoutProgressPage>
 
   Future<void> loadScheduleData() async {
     try {
-      final response = await http.get(
-        Uri.parse('https://fitnessschedule.s3.us-east-1.amazonaws.com/schedule.json'),
-      );
+      setState(() {
+        isLoading = true;
+        errorMessage = null;
+      });
 
-      if (response.statusCode == 200) {
-        setState(() {
-          scheduleData = json.decode(response.body);
-          isLoading = false;
-          errorMessage = null;
-        });
-      } else {
-        throw Exception('Failed to load schedule data');
-      }
+      final jsonString = await rootBundle.loadString('lib/Data/schedule.json');
+      final jsonData = json.decode(jsonString);
+      final exercises = jsonData['fitnessApp']['exercises'];
+
+      setState(() {
+        scheduleData = exercises;
+        isLoading = false;
+      });
     } catch (e) {
       setState(() {
         isLoading = false;
-        errorMessage = 'Failed to load workout data. Please try again later.';
+        errorMessage = 'Failed to load workout data: ${e.toString()}';
       });
     }
   }
@@ -111,8 +130,8 @@ class _WorkoutProgressPageState extends State<WorkoutProgressPage>
                 });
                 loadScheduleData();
               },
-              child: Text('Retry'),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+              child: Text('Retry'),
             ),
           ],
         ),
@@ -188,7 +207,9 @@ class _WorkoutProgressPageState extends State<WorkoutProgressPage>
               width: 80,
               margin: EdgeInsets.only(right: 12),
               decoration: BoxDecoration(
-                color: selectedDayIndex == index ? Colors.orange : Colors.grey[900],
+                color: selectedDayIndex == index
+                    ? Colors.orange
+                    : Colors.grey[900],
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Center(
@@ -208,19 +229,38 @@ class _WorkoutProgressPageState extends State<WorkoutProgressPage>
   }
 
   Widget _buildWorkoutList(String type) {
-    if (scheduleData == null) return Container();
-    
-    final exercises = scheduleData!['fitnessApp']['exercises'][type]['schedule']
-        [selectedDayIndex]['exercises'] as List;
-    
-    return ListView.builder(
-      padding: EdgeInsets.all(16),
-      itemCount: exercises.length,
-      itemBuilder: (context, index) {
-        final exercise = Exercise.fromJson(exercises[index]);
-        return _buildExerciseCard(exercise);
-      },
-    );
+    try {
+      if (scheduleData == null) {
+        return Center(
+          child:
+              Text('No data available', style: TextStyle(color: Colors.white)),
+        );
+      }
+
+      final schedule = scheduleData![type]['schedule'];
+      if (schedule == null || selectedDayIndex >= schedule.length) {
+        return Center(
+          child:
+              Text('No exercises found', style: TextStyle(color: Colors.white)),
+        );
+      }
+
+      final exercises = schedule[selectedDayIndex]['exercises'] as List;
+
+      return ListView.builder(
+        padding: EdgeInsets.all(16),
+        itemCount: exercises.length,
+        itemBuilder: (context, index) {
+          final exercise = Exercise.fromJson(exercises[index]);
+          return _buildExerciseCard(exercise);
+        },
+      );
+    } catch (e) {
+      return Center(
+        child: Text('Error loading exercises: ${e.toString()}',
+            style: TextStyle(color: Colors.white)),
+      );
+    }
   }
 
   Widget _buildExerciseCard(Exercise exercise) {

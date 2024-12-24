@@ -18,7 +18,7 @@ class _LoadingDialogState extends State<LoadingDialog> with SingleTickerProvider
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 4),
+      duration: Duration(seconds: 2),
     );
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
     _controller.forward();

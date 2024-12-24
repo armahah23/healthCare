@@ -1,11 +1,13 @@
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class ApiService {
-  static const String baseUrl = 'http://localhost:5000/api'; // For Android emulator
+import 'package:http/http.dart' as http;
 
-  static Future<Map<String, dynamic>> signup(
-      String fullname, String email, String password, String confirmPassword) async {
+class ApiService {
+  static const String baseUrl =
+      'http://localhost:5000/api'; // For Android emulator
+
+  static Future<Map<String, dynamic>> signup(String fullname, String email,
+      String password, String confirmPassword) async {
     try {
       final response = await http.post(
         Uri.parse('$baseUrl/createuser'),
@@ -24,7 +26,8 @@ class ApiService {
     }
   }
 
-  static Future<Map<String, dynamic>> login(String email, String password) async {
+  static Future<Map<String, dynamic>> login(
+      String email, String password) async {
     try {
       final response = await http.post(
         Uri.parse('$baseUrl/login'),
